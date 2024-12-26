@@ -2,10 +2,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
+import router from './app/router';
 
 const app: Application = express();
-
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(
   cors({
     origin: ['http://localhost:3000'],
@@ -13,7 +15,7 @@ app.use(
   }),
 );
 
-app.use(express.urlencoded({ extended: true }));
+app.use(router);
 
 app.use('/', (req: Request, res: Response, next: NextFunction) => {
   res.json({
