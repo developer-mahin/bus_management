@@ -2,7 +2,6 @@ import { z } from 'zod';
 
 const createBusValidationSchema = z.object({
   body: z.object({
-    userId: z.string().min(1, { message: 'User ID is required' }),
     busName: z.string().min(1, { message: 'Bus name is required' }),
     busImage: z.string().min(1, { message: 'Bus image is required' }),
     capacity: z.number().min(1, { message: 'Capacity is required' }),
@@ -16,7 +15,6 @@ const createBusValidationSchema = z.object({
 
 const updateBusValidationSchema = z.object({
   body: z.object({
-    userId: z.string().min(1, { message: 'User ID is required' }).optional(),
     busName: z.string().min(1, { message: 'Bus name is required' }).optional(),
     busLicense: z
       .string()

@@ -4,7 +4,8 @@ import sendResponse from '../../utils/sendResponse';
 import { BusService } from './bus.service';
 
 const createBus = catchAsync(async (req, res) => {
-  const result = await BusService.createBus(req.body);
+  const token = req.headers.authorization;
+  const result = await BusService.createBus(req.body, token as  string);
 
   sendResponse(res, {
     success: true,
