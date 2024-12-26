@@ -17,10 +17,7 @@ const registerUser = async (
     throw new AppError(httpStatus.CONFLICT, 'User already exist');
   }
 
-  const passwordHash = await hashPassword(
-    payload.password,
-    Number(config.salt_round),
-  );
+  const passwordHash = await hashPassword(payload.password, 10);
 
   await User.create({
     name: payload.name,
@@ -53,7 +50,7 @@ const loginUser = async (payload: Pick<IUser, 'email' | 'password'>) => {
     throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked!');
   }
 
-  const matchPassword = await isMatchedPassword(password, user.password);
+  const matchPassword = await isMatchedPassword(password, user?.password);
 
   if (!matchPassword) {
     throw new AppError(httpStatus.FORBIDDEN, 'password not matched');
@@ -83,7 +80,12 @@ const loginUser = async (payload: Pick<IUser, 'email' | 'password'>) => {
   };
 };
 
+const logOutUser = async () => {
+  return {};
+};
+
 export const AuthService = {
   registerUser,
   loginUser,
+  logOutUser,
 };

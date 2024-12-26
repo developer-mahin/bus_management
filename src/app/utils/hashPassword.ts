@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 
 export const hashPassword = async (password: string, saltRound: number) => {
   try {

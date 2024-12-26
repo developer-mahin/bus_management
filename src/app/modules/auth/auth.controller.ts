@@ -33,4 +33,18 @@ const loginUser = catchAsync(async (req, res) => {
   });
 });
 
-export const AuthController = { registerUser, loginUser };
+const logOutUser = catchAsync(async (req, res) => {
+  res.cookie('refreshToken', '', {
+    secure: config.NODE_ENV === 'production',
+    httpOnly: true,
+    expires: new Date(0),
+  });
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'User logged out successfully',
+  });
+});
+
+export const AuthController = { registerUser, loginUser , logOutUser };

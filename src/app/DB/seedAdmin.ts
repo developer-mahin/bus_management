@@ -1,7 +1,7 @@
 import config from '../../config';
 import { USER_ROLE } from '../constant';
 import User from '../modules/user/user.model';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 
 export const seedAdmin = async () => {
   try {
@@ -21,6 +21,8 @@ export const seedAdmin = async () => {
       email: config.admin.email,
       password: hashPassword,
       role: USER_ROLE.ADMIN,
+      contactNo: config.admin.contactNo,
+      profileImage: config.admin.profileImage,
     });
 
     console.log('Admin created successfully!');

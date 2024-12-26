@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status';
 import AppError from './AppError';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 
 export const isMatchedPassword = async (
   password: string,

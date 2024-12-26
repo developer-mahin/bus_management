@@ -1,5 +1,4 @@
-import bcrypt from 'bcryptjs';
-import mongoose, { Document } from 'mongoose';
+import mongoose from 'mongoose';
 import { IUser } from './user.interface';
 
 export const userSchema = new mongoose.Schema<IUser>(
@@ -50,25 +49,6 @@ export const userSchema = new mongoose.Schema<IUser>(
     timestamps: true,
   },
 );
-
-userSchema.pre('save', async function (next) {
-  const user = this as IUser & Document;
-
-  if (!user.isModified('password')) return next();
-
-  const salt = await bcrypt.genSalt(10);
-  const hash = await bcrypt.hash(user.password, salt);
-
-  user.password = hash;
-
-  next();
-});
-
-userSchema.methods.matchPassword = async function (enteredPassword: string) {
-  const user = this as IUser & Document;
-
-  return await bcrypt.compare(enteredPassword, user.password);
-};
 
 // query middlewares
 userSchema.pre('find', async function (next) {

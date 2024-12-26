@@ -18,6 +18,8 @@ export default {
     name: process.env.ADMIN_NAME,
     email: process.env.ADMIN_EMAIL,
     password: process.env.ADMIN_PASSWORD,
+    contactNo: process.env.ADMIN_CONTACT_NO,
+    profileImage: process.env.ADMIN_PROFILE_IMAGE,
   },
   smtp_user: process.env.SMTP_USER,
   smtp_password: process.env.SMTP_PASS,
