@@ -24,10 +24,12 @@ export const userSchema = new mongoose.Schema<IUser>(
     },
     contactNo: {
       type: String,
+      required: [true, 'Contact number is required'],
       trim: true,
     },
     profileImage: {
       type: String,
+      required: [true, 'Profile image is required'],
     },
     role: {
       type: String,
