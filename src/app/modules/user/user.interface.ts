@@ -1,5 +1,5 @@
-type TRole = 'ADMIN' | 'USER';
-type TStatus = 'ACTIVE' | 'DEACTIVATED' | 'BLOCKED';
+export type TRole = 'ADMIN' | 'USER';
+export type TStatus = 'ACTIVE' | 'DEACTIVATED' | 'BLOCKED';
 
 export type IUser = {
   name: string;

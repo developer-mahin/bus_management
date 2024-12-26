@@ -14,6 +14,11 @@ export default {
     refresh_token: process.env.REFRESH_KEY,
     refresh_expires_in: process.env.REFRESH_EXPIRE_IN,
   },
+  admin: {
+    name: process.env.ADMIN_NAME,
+    email: process.env.ADMIN_EMAIL,
+    password: process.env.ADMIN_PASSWORD,
+  },
   smtp_user: process.env.SMTP_USER,
   smtp_password: process.env.SMTP_PASS,
   server_url: process.env.SERVER_URL,

@@ -3,6 +3,8 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import router from './app/router';
+import notFound from './app/middleware/nof-found';
+import globalErrorHandler from './app/middleware/globalErrorHandler';
 
 const app: Application = express();
 app.use(express.json());
@@ -15,12 +17,20 @@ app.use(
   }),
 );
 
+// Routes Middleware
 app.use(router);
 
+// Default Route
 app.use('/', (req: Request, res: Response, next: NextFunction) => {
   res.json({
     message: 'Welcome To The Job Hunter Server',
   });
 });
+
+// Not Found Middleware
+app.use(notFound);
+
+// Global Error Handler Middleware
+app.use(globalErrorHandler);
 
 export default app;
