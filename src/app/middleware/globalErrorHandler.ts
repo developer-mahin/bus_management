@@ -2,13 +2,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ErrorRequestHandler } from 'express';
 import { ZodError } from 'zod';
-import AppError from '../utils/AppError';
-import { TErrorSources } from '../../interface/IErrorSources';
-import handleZodError from '../../Errors/handleZodErorr';
-import { handleValidationError } from '../../Errors/handleValidationError';
 import { handleCastError } from '../../Errors/handleCastError';
 import { handleDuplicateError } from '../../Errors/handleDuplicateError';
+import { handleValidationError } from '../../Errors/handleValidationError';
+import handleZodError from '../../Errors/handleZodErorr';
 import config from '../../config';
+import { TErrorSources } from '../interface/IErrorSources';
+import AppError from '../utils/AppError';
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   let statusCode = 500;
