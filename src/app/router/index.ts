@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { UserRoutes } from '../modules/user/user.routes';
 import { AuthRoutes } from '../modules/auth/auth.routes';
+import { BusRoutes } from '../modules/bus/bus.routes';
 const router = Router();
 
 const routes = [
@@ -12,6 +13,10 @@ const routes = [
     path: '/auth',
     route: AuthRoutes,
   },
+  {
+    path:"/", 
+    route: BusRoutes
+  }
 ];
 
 routes.forEach((item) => {
