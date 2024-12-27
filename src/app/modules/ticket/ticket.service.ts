@@ -121,11 +121,19 @@ const updateTicket = async (ticketId: string, payload: Partial<TTicket>) => {
 };
 
 const deleteTicket = async (ticketId: string) => {
-  const ticket = await Ticket.findByIdAndDelete(ticketId);
+  const ticket = await Ticket.findById(ticketId);
+
   if (!ticket) {
     throw new AppError(httpStatus.NOT_FOUND, 'Ticket not found');
   }
-  return ticket;
+
+  const result = await Ticket.findByIdAndUpdate(
+    ticketId,
+    { isDeleted: true, seatNumber: 0, status: TICKET_STATUS.EXPIRED },
+    { new: true },
+  );
+
+  return result;
 };
 
 export const TicketServices = {
