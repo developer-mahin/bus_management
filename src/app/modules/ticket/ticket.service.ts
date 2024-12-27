@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { addHours, format } from 'date-fns';
+import { format } from 'date-fns';
 import httpStatus from 'http-status';
 import { JwtPayload, Secret } from 'jsonwebtoken';
 import config from '../../../config';
 import { TICKET_STATUS } from '../../constant';
+import QueryBuilder from '../../QueryBuilder/queryBuilder';
 import AppError from '../../utils/AppError';
 import { decodeToken } from '../../utils/decodeToken';
 import Bus from '../bus/bus.model';
+import {
+  ticketFilterableFields,
+  ticketSearchableFields,
+} from './ticket.constant';
 import { TTicket } from './ticket.interface';
 import Ticket from './ticket.model';
 
@@ -30,9 +35,7 @@ const createTicket = async (
 
   const departureDate = new Date(date);
 
-  const startDateTime = new Date(
-    addHours(`${format(departureDate, 'yyyy-MM-dd')}` as string, 1),
-  );
+  const startDateTime = new Date(format(departureDate, 'yyyy-MM-dd'));
 
   const isTicketExist = await Ticket.findOne({
     busId,
@@ -60,7 +63,27 @@ const createTicket = async (
   return ticket;
 };
 
-const purchaseTicket = async (token: string, payload: { ticketId: string }) => {
+const getAllTickets = async (query: Record<string, unknown>) => {
+  const busQuery = new QueryBuilder(Ticket.find({}), query)
+    .search(ticketSearchableFields)
+    .paginate()
+    .filter(ticketFilterableFields)
+    .sort();
+
+  const result = await busQuery.queryModel;
+
+  const meta = await busQuery.countTotal();
+
+  return {
+    result,
+    meta: meta,
+  };
+};
+
+const purchaseTicket = async (
+  token: string,
+  payload: { ticketId: string; phoneNumber: string; fullName: string },
+) => {
   const user = decodeToken(
     token,
     config.jwt.access_token as Secret,
@@ -86,7 +109,14 @@ const purchaseTicket = async (token: string, payload: { ticketId: string }) => {
 
   const updatedTicket = await Ticket.findOneAndUpdate(
     { _id: ticket._id },
-    { $set: { status: TICKET_STATUS.SOLD, purchasedBy: user.userId } },
+    {
+      $set: {
+        status: TICKET_STATUS.SOLD,
+        purchasedBy: user.userId,
+        fullName: payload.fullName,
+        phoneNumber: payload.phoneNumber,
+      },
+    },
     { new: true },
   );
 
@@ -123,7 +153,7 @@ const updateTicket = async (ticketId: string, payload: Partial<TTicket>) => {
   if (payload.seatNumber && existingTicket.seatNumber !== payload.seatNumber) {
     const ticket = await Ticket.findOne({
       busId: existingTicket.busId,
-      departureTime: { $eq: existingTicket.departureTime }, // Check for exact time match
+      date: { $eq: existingTicket.date }, // Check for exact time match
       seatNumber: payload.seatNumber,
     });
 
@@ -160,6 +190,7 @@ const deleteTicket = async (ticketId: string) => {
 
 export const TicketServices = {
   createTicket,
+  getAllTickets,
   purchaseTicket,
   updateTicket,
   deleteTicket,

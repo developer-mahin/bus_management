@@ -15,6 +15,18 @@ const createTicket = catchAsync(async (req, res) => {
   });
 });
 
+const getAllTickets = catchAsync(async (req, res) => {
+  const result = await TicketServices.getAllTickets(req.query);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'All tickets fetched successfully',
+    meta: result.meta,
+    data: result.result,
+  });
+});
+
 const purchaseTicket = catchAsync(async (req, res) => {
   const token = req.headers.authorization;
   const result = await TicketServices.purchaseTicket(token as string, req.body);
@@ -53,6 +65,7 @@ const deleteTicket = catchAsync(async (req, res) => {
 
 export const TicketController = {
   createTicket,
+  getAllTickets,
   purchaseTicket,
   updateTicket,
   deleteTicket,

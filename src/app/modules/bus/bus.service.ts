@@ -6,6 +6,8 @@ import { decodeToken } from '../../utils/decodeToken';
 import { JwtPayload, Secret } from 'jsonwebtoken';
 import config from '../../../config';
 import { USER_ROLE } from '../../constant';
+import QueryBuilder from '../../QueryBuilder/queryBuilder';
+import { busFilterableFields, busSearchableFields } from './bus.constant';
 
 const createBus = async (payload: TBus, token: string) => {
   const isBusExist = await Bus.findOne({ busNumber: payload.busNumber });
@@ -31,9 +33,26 @@ const createBus = async (payload: TBus, token: string) => {
   });
 };
 
-const getAllBuses = async () => {
-  // write for available buses
-  return await Bus.find({});
+const getAllBuses = async (query: Record<string, unknown>) => {
+  const busQuery = new QueryBuilder(
+    Bus.find({}).populate({
+      path: 'userId',
+      model: 'User',
+    }),
+    query,
+  )
+    .search(busSearchableFields)
+    .paginate()
+    .filter(busFilterableFields)
+    .sort();
+
+  const result = await busQuery.queryModel;
+
+  const meta = await busQuery.countTotal();
+  return {
+    result,
+    meta,
+  };
 };
 
 const getSingleBus = async (busId: string) => {

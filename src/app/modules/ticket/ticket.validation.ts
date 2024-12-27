@@ -9,6 +9,15 @@ const createTicketValidationSchema = z.object({
   }),
 });
 
+const ticketPurchaseValidationSchema = z.object({
+  body: z.object({
+    ticketId: z.string().min(1, { message: 'Ticket ID is required' }),
+    fullName: z.string().min(1, { message: 'Full name is required' }),
+    phoneNumber: z.string().min(1, { message: 'Phone number is required' }),
+  }),
+});
+
 export const TicketValidation = {
   createTicketValidationSchema,
+  ticketPurchaseValidationSchema
 };

@@ -17,6 +17,12 @@ const ticketSchema = new mongoose.Schema<TTicket>(
       ref: 'User',
       required: [true, 'User ID is required'],
     },
+    fullName: {
+      type: String,
+    },
+    phoneNumber: {
+      type: String,
+    },
     price: {
       type: Number,
       required: [true, 'Price is required'],
@@ -47,23 +53,19 @@ const ticketSchema = new mongoose.Schema<TTicket>(
 
 // query middlewares
 ticketSchema.pre('find', async function (next) {
-  this.find({
-    $and: [{ isDeleted: { $ne: true }, status: { $eq: 'AVAILABLE' } }],
-  });
+  this.find({ isDeleted: { $ne: true } });
   next();
 });
 
 ticketSchema.pre('findOne', async function (next) {
-  this.findOne({
-    $and: [{ isDeleted: { $ne: true }, status: { $eq: 'AVAILABLE' } }],
-  });
+  this.findOne({ isDeleted: { $ne: true } });
   next();
 });
 
 ticketSchema.pre('aggregate', async function (next) {
   this.pipeline().unshift({
     $match: {
-      $and: [{ isDeleted: { $ne: true } }, { status: { $eq: 'AVAILABLE' } }],
+      isDeleted: { $ne: true },
     },
   });
   next();

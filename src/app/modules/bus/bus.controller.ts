@@ -5,7 +5,7 @@ import { BusService } from './bus.service';
 
 const createBus = catchAsync(async (req, res) => {
   const token = req.headers.authorization;
-  const result = await BusService.createBus(req.body, token as  string);
+  const result = await BusService.createBus(req.body, token as string);
 
   sendResponse(res, {
     success: true,
@@ -16,13 +16,14 @@ const createBus = catchAsync(async (req, res) => {
 });
 
 const getAllBuses = catchAsync(async (req, res) => {
-  const result = await BusService.getAllBuses();
+  const result = await BusService.getAllBuses(req.query);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: 'All buses fetched successfully',
-    data: result,
+    meta: result.meta,
+    data: result.result,
   });
 });
 

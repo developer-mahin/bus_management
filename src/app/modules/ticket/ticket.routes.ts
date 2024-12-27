@@ -16,9 +16,12 @@ router.post(
 
 router.post(
   '/tickets/purchase',
+  validateRequest(TicketValidation.ticketPurchaseValidationSchema),
   auth(USER_ROLE.USER),
   TicketController.purchaseTicket,
 );
+
+router.get('/tickets', auth(USER_ROLE.USER), TicketController.getAllTickets);
 
 router.put(
   '/admin/ticket/:id',
