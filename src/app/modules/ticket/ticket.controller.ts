@@ -15,6 +15,32 @@ const createTicket = catchAsync(async (req, res) => {
   });
 });
 
+const updateTicket = catchAsync(async (req, res) => {
+  const { id: ticketId } = req.params;
+  const result = await TicketServices.updateTicket(ticketId, req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    data: result,
+    message: 'Ticket updated successfully',
+  });
+});
+
+const deleteTicket = catchAsync(async (req, res) => {
+  const { id: ticketId } = req.params;
+  const result = await TicketServices.deleteTicket(ticketId);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    data: result,
+    message: 'Ticket deleted successfully',
+  });
+});
+
 export const TicketController = {
   createTicket,
+  updateTicket,
+  deleteTicket,
 };

@@ -14,4 +14,16 @@ router.post(
   TicketController.createTicket,
 );
 
+router.put(
+  '/admin/ticket/:id',
+  auth(USER_ROLE.ADMIN),
+  TicketController.updateTicket,
+);
+
+router.delete(
+  '/admin/ticket/:id',
+  auth(USER_ROLE.ADMIN),
+  TicketController.deleteTicket,
+);
+
 export const TicketRoutes = router;
