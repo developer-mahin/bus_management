@@ -8,7 +8,7 @@ import config from '../../../config';
 import { USER_ROLE } from '../../constant';
 
 const createBus = async (payload: TBus, token: string) => {
-  const isBusExist = await Bus.findOne({ busLicense: payload.busLicense });
+  const isBusExist = await Bus.findOne({ busLicense: payload.busNumber });
   if (isBusExist) {
     throw new AppError(httpStatus.BAD_REQUEST, 'Bus already exist');
   }

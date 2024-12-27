@@ -17,11 +17,7 @@ export const busSchema = new mongoose.Schema<TBus>(
       type: String,
       required: [true, 'Bus image is required'],
     },
-    busLicense: {
-      type: String,
-      required: [true, 'Bus license is required'],
-      unique: true,
-    },
+
     busNumber: {
       type: String,
       required: [true, 'Bus number is required'],
@@ -33,7 +29,6 @@ export const busSchema = new mongoose.Schema<TBus>(
     },
     availableSeats: {
       type: Number,
-      required: [true, 'Available seats is required'],
     },
     driverName: {
       type: String,

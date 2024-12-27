@@ -1,12 +1,14 @@
 import { Types } from 'mongoose';
+export type TTicketStatus = 'SOLD' | 'AVAILABLE' | 'EXPIRED';
 
 export type TTicket = {
   busId: Types.ObjectId;
+  createdBy: Types.ObjectId;
   purchasedBy: Types.ObjectId;
   price: number;
-  departureTime: Date;
-  arrivalTime: Date;
+  departureTime: string;
+  arrivalTime: string;
   seatNumber: number;
-  expireIn: Date;
+  status: TTicketStatus;
   isDeleted: boolean;
 };
