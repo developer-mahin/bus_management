@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { addHours, addMinutes, format } from 'date-fns';
 import httpStatus from 'http-status';
+import { JwtPayload, Secret } from 'jsonwebtoken';
+import mongoose from 'mongoose';
+import config from '../../../config';
+import { TICKET_STATUS } from '../../constant';
 import AppError from '../../utils/AppError';
-import { convertDateAndTime } from '../../utils/convertInDateAndTime';
+import { decodeToken } from '../../utils/decodeToken';
 import Bus from '../bus/bus.model';
 import { TTicket } from './ticket.interface';
 import Ticket from './ticket.model';
-import { decodeToken } from '../../utils/decodeToken';
-import config from '../../../config';
-import { JwtPayload, Secret } from 'jsonwebtoken';
-import { TICKET_STATUS } from '../../constant';
 
 const createTicket = async (
   token: string,
@@ -27,14 +29,33 @@ const createTicket = async (
     );
   }
 
-  // create a function or any middleware for it
-  // if the  departureTime will be exceed the arrivalTime then it will change the status of the ticket to Expired
+  const departureDate = new Date(departureTime.split(' ')[0]);
+  const departureTimeString = departureTime.split(' ')[1];
 
-  // Convert date strings to Date objects
-  const convertedDepartureTime = convertDateAndTime(departureTime);
-  const convertedArrivalTime = convertDateAndTime(arrivalTime);
+  const arrivalDate = new Date(arrivalTime.split(' ')[0]);
+  const arrivalTimeString = arrivalTime.split(' ')[1];
 
-  if (convertedDepartureTime >= convertedArrivalTime) {
+  const startDateTime = new Date(
+    addMinutes(
+      addHours(
+        `${format(departureDate, 'yyyy-MM-dd')}`,
+        Number(departureTimeString.split(':')[0]),
+      ),
+      Number(departureTimeString.split(':')[1]),
+    ),
+  );
+
+  const endDateTime = new Date(
+    addMinutes(
+      addHours(
+        `${format(arrivalDate, 'yyyy-MM-dd')}`,
+        Number(arrivalTimeString.split(':')[0]),
+      ),
+      Number(arrivalTimeString.split(':')[1]),
+    ),
+  );
+
+  if (startDateTime.getTime() > endDateTime.getTime()) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
       'Departure time must be before arrival time',
@@ -43,8 +64,11 @@ const createTicket = async (
 
   const existingTicket = await Ticket.findOne({
     busId,
-    departureTime: { $eq: convertedDepartureTime }, // Check for exact time match
     seatNumber,
+    $or: [
+      { departureTime: { $gte: startDateTime, $lt: endDateTime } },
+      { arrivalTime: { $gt: startDateTime, $lte: endDateTime } },
+    ],
   });
 
   if (existingTicket) {
@@ -63,12 +87,70 @@ const createTicket = async (
     busId,
     createdBy: admin.userId,
     price,
-    departureTime: convertedDepartureTime,
-    arrivalTime: convertedArrivalTime,
+    departureTime: startDateTime,
+    arrivalTime: endDateTime,
     seatNumber,
   });
 
   return ticket;
+};
+
+const purchaseTicket = async (token: string, payload: { ticketId: string }) => {
+  const user = decodeToken(
+    token,
+    config.jwt.access_token as Secret,
+  ) as JwtPayload;
+
+  const ticket = await Ticket.findById(payload.ticketId);
+  if (!ticket) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Ticket not found');
+  }
+
+  if (ticket.status !== TICKET_STATUS.AVAILABLE) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'Ticket is not available');
+  }
+
+  if (ticket.purchasedBy) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'Ticket is already purchased');
+  }
+
+  const bus = await Bus.findById(ticket.busId);
+  if (!bus) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Bus not found');
+  }
+
+  const session = await mongoose.startSession();
+  try {
+    session.startTransaction();
+
+    const updatedTicket = await Ticket.findOneAndUpdate(
+      { _id: ticket._id },
+      [{ $set: { status: TICKET_STATUS.SOLD, purchasedBy: user.userId } }],
+      { session },
+    );
+
+    if (!updatedTicket) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to purchase ticket');
+    }
+
+    const updatedBus = await Bus.findOneAndUpdate(
+      { _id: bus._id },
+      [{ $inc: { availableSeats: -1 } }],
+      { session },
+    );
+
+    if (!updatedBus) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to purchase ticket');
+    }
+
+    await session.commitTransaction();
+    await session.endSession();
+  } catch (error) {
+    await session.abortTransaction();
+    await session.endSession();
+
+    throw new AppError(httpStatus.BAD_REQUEST, 'Failed to purchase ticket');
+  }
 };
 
 const updateTicket = async (ticketId: string, payload: Partial<TTicket>) => {
@@ -138,6 +220,7 @@ const deleteTicket = async (ticketId: string) => {
 
 export const TicketServices = {
   createTicket,
+  purchaseTicket,
   updateTicket,
   deleteTicket,
 };

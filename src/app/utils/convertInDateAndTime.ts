@@ -1,9 +1,13 @@
-export const convertDateAndTime = (date: string) => {
-  // date format: 2021-09-01 12:00
+export const convertDateAndTime = (dateStr: string) => {
+  // Parse the input string into a Date object
+  const localDate = new Date(dateStr.replace(' ', 'T') + ':00');
 
-  const [datePart, timePart] = date.split(' ');
-  const [day, month, year] = datePart.split('-');
-  const [hour, minute] = timePart.split(':');
-  const formattedDate = `${year}-${month}-${day}T${hour}:${minute}:00.000Z`;
-  return formattedDate;
+  // Format the Date object as UTC
+  const utcYear = localDate.getUTCFullYear();
+  const utcMonth = String(localDate.getUTCMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+  const utcDay = String(localDate.getUTCDate()).padStart(2, '0');
+  const utcHours = String(localDate.getUTCHours()).padStart(2, '0');
+  const utcMinutes = String(localDate.getUTCMinutes()).padStart(2, '0');
+
+  return `${utcYear}-${utcMonth}-${utcDay} ${utcHours}:${utcMinutes}`;
 };

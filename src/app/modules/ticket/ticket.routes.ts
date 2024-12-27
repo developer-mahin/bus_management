@@ -14,6 +14,12 @@ router.post(
   TicketController.createTicket,
 );
 
+router.post(
+  '/tickets/purchase',
+  auth(USER_ROLE.USER),
+  TicketController.purchaseTicket,
+);
+
 router.put(
   '/admin/ticket/:id',
   auth(USER_ROLE.ADMIN),

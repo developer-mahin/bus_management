@@ -15,6 +15,18 @@ const createTicket = catchAsync(async (req, res) => {
   });
 });
 
+const purchaseTicket = catchAsync(async (req, res) => {
+  const token = req.headers.authorization;
+  const result = await TicketServices.purchaseTicket(token as string, req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.CREATED,
+    data: result,
+    message: 'Ticket created successfully',
+  });
+});
+
 const updateTicket = catchAsync(async (req, res) => {
   const { id: ticketId } = req.params;
   const result = await TicketServices.updateTicket(ticketId, req.body);
@@ -41,6 +53,7 @@ const deleteTicket = catchAsync(async (req, res) => {
 
 export const TicketController = {
   createTicket,
+  purchaseTicket,
   updateTicket,
   deleteTicket,
 };

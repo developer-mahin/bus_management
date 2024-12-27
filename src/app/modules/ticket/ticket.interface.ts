@@ -12,3 +12,4 @@ export type TTicket = {
   status: TTicketStatus;
   isDeleted: boolean;
 };
+
