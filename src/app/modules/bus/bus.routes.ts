@@ -14,7 +14,7 @@ router.post(
   BusController.createBus,
 );
 
-router.get('/buses', BusController.getAllBuses);
+router.get('/buses', auth(USER_ROLE.USER), BusController.getAllBuses);
 
 router.get('/admin/bus/:id', BusController.getSingleBus);
 

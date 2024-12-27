@@ -21,16 +21,13 @@ const ticketSchema = new mongoose.Schema<TTicket>(
       type: Number,
       required: [true, 'Price is required'],
     },
-    departureTime: {
-      type: String,
-      required: [true, 'Departure time is required'],
-    },
-    arrivalTime: {
+    date: {
       type: String,
       required: [true, 'Arrival time is required'],
     },
     seatNumber: {
       type: Number,
+      unique: true,
       required: [true, 'Seat number is required'],
     },
     status: {

@@ -32,6 +32,7 @@ const createBus = async (payload: TBus, token: string) => {
 };
 
 const getAllBuses = async () => {
+  // write for available buses
   return await Bus.find({});
 };
 

@@ -27,9 +27,7 @@ export const busSchema = new mongoose.Schema<TBus>(
       type: Number,
       required: [true, 'seats is required'],
     },
-    availableSeats: {
-      type: Number,
-    },
+
     driverName: {
       type: String,
       required: [true, 'Driver name is required'],
@@ -57,19 +55,19 @@ export const busSchema = new mongoose.Schema<TBus>(
 
 // query middlewares
 busSchema.pre('find', async function (next) {
-  this.find({ $and: [{ isDeleted: { $ne: true }, seats: { $gte: 1 } }] });
+  this.find({ isDeleted: { $ne: true } });
   next();
 });
 
 busSchema.pre('findOne', async function (next) {
-  this.findOne({ $and: [{ isDeleted: { $ne: true }, seats: { $gte: 1 } }] });
+  this.findOne({ isDeleted: { $ne: true } });
   next();
 });
 
 busSchema.pre('aggregate', async function (next) {
   this.pipeline().unshift({
     $match: {
-      $and: [{ isDeleted: { $ne: true } }, { seats: { $gte: 1 } }],
+      isDeleted: { $ne: true },
     },
   });
   next();

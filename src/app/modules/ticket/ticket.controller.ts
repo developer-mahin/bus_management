@@ -23,7 +23,7 @@ const purchaseTicket = catchAsync(async (req, res) => {
     success: true,
     statusCode: httpStatus.CREATED,
     data: result,
-    message: 'Ticket created successfully',
+    message: 'Ticket purchased successfully',
   });
 });
 

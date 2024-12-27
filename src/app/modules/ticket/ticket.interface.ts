@@ -6,8 +6,7 @@ export type TTicket = {
   createdBy: Types.ObjectId;
   purchasedBy: Types.ObjectId;
   price: number;
-  departureTime: string;
-  arrivalTime: string;
+  date: string;
   seatNumber: number;
   status: TTicketStatus;
   isDeleted: boolean;

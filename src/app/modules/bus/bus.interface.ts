@@ -8,7 +8,6 @@ export type TBus = {
   driverName: string;
   driverPhone: string;
   seats: number;
-  availableSeats?: number;
   description?: string;
   route: string;
   isDeleted: boolean;

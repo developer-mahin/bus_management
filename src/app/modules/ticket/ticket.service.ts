@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { addHours, addMinutes, format } from 'date-fns';
+import { addHours, format } from 'date-fns';
 import httpStatus from 'http-status';
 import { JwtPayload, Secret } from 'jsonwebtoken';
-import mongoose from 'mongoose';
 import config from '../../../config';
 import { TICKET_STATUS } from '../../constant';
 import AppError from '../../utils/AppError';
@@ -15,7 +14,7 @@ const createTicket = async (
   token: string,
   payload: Omit<TTicket, 'isDeleted' | 'status' | 'purchasedBy'>,
 ) => {
-  const { busId, price, departureTime, arrivalTime, seatNumber } = payload;
+  const { busId, price, date, seatNumber } = payload;
 
   const bus = await Bus.findById(busId);
   if (!bus) {
@@ -29,53 +28,20 @@ const createTicket = async (
     );
   }
 
-  const departureDate = new Date(departureTime.split(' ')[0]);
-  const departureTimeString = departureTime.split(' ')[1];
-
-  const arrivalDate = new Date(arrivalTime.split(' ')[0]);
-  const arrivalTimeString = arrivalTime.split(' ')[1];
+  const departureDate = new Date(date);
 
   const startDateTime = new Date(
-    addMinutes(
-      addHours(
-        `${format(departureDate, 'yyyy-MM-dd')}`,
-        Number(departureTimeString.split(':')[0]),
-      ),
-      Number(departureTimeString.split(':')[1]),
-    ),
+    addHours(`${format(departureDate, 'yyyy-MM-dd')}` as string, 1),
   );
 
-  const endDateTime = new Date(
-    addMinutes(
-      addHours(
-        `${format(arrivalDate, 'yyyy-MM-dd')}`,
-        Number(arrivalTimeString.split(':')[0]),
-      ),
-      Number(arrivalTimeString.split(':')[1]),
-    ),
-  );
-
-  if (startDateTime.getTime() > endDateTime.getTime()) {
-    throw new AppError(
-      httpStatus.BAD_REQUEST,
-      'Departure time must be before arrival time',
-    );
-  }
-
-  const existingTicket = await Ticket.findOne({
+  const isTicketExist = await Ticket.findOne({
     busId,
+    date: startDateTime,
     seatNumber,
-    $or: [
-      { departureTime: { $gte: startDateTime, $lt: endDateTime } },
-      { arrivalTime: { $gt: startDateTime, $lte: endDateTime } },
-    ],
   });
 
-  if (existingTicket) {
-    throw new AppError(
-      httpStatus.CONFLICT,
-      'Seat already booked for this time',
-    );
+  if (isTicketExist) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'Ticket already exist');
   }
 
   const admin = decodeToken(
@@ -87,8 +53,7 @@ const createTicket = async (
     busId,
     createdBy: admin.userId,
     price,
-    departureTime: startDateTime,
-    arrivalTime: endDateTime,
+    date: startDateTime,
     seatNumber,
   });
 
@@ -119,38 +84,13 @@ const purchaseTicket = async (token: string, payload: { ticketId: string }) => {
     throw new AppError(httpStatus.NOT_FOUND, 'Bus not found');
   }
 
-  const session = await mongoose.startSession();
-  try {
-    session.startTransaction();
+  const updatedTicket = await Ticket.findOneAndUpdate(
+    { _id: ticket._id },
+    { $set: { status: TICKET_STATUS.SOLD, purchasedBy: user.userId } },
+    { new: true },
+  );
 
-    const updatedTicket = await Ticket.findOneAndUpdate(
-      { _id: ticket._id },
-      [{ $set: { status: TICKET_STATUS.SOLD, purchasedBy: user.userId } }],
-      { session },
-    );
-
-    if (!updatedTicket) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to purchase ticket');
-    }
-
-    const updatedBus = await Bus.findOneAndUpdate(
-      { _id: bus._id },
-      [{ $inc: { availableSeats: -1 } }],
-      { session },
-    );
-
-    if (!updatedBus) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to purchase ticket');
-    }
-
-    await session.commitTransaction();
-    await session.endSession();
-  } catch (error) {
-    await session.abortTransaction();
-    await session.endSession();
-
-    throw new AppError(httpStatus.BAD_REQUEST, 'Failed to purchase ticket');
-  }
+  return updatedTicket;
 };
 
 const updateTicket = async (ticketId: string, payload: Partial<TTicket>) => {
