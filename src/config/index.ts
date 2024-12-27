@@ -21,8 +21,4 @@ export default {
     contactNo: process.env.ADMIN_CONTACT_NO,
     profileImage: process.env.ADMIN_PROFILE_IMAGE,
   },
-  smtp_user: process.env.SMTP_USER,
-  smtp_password: process.env.SMTP_PASS,
-  server_url: process.env.SERVER_URL,
-  front_end_url: process.env.FRONT_END_URL,
 };

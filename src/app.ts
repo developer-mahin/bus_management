@@ -23,7 +23,7 @@ app.use(router);
 // Default Route
 app.use('/', (req: Request, res: Response, next: NextFunction) => {
   res.json({
-    message: 'Welcome To The Job Hunter Server',
+    message: 'Welcome To The ticket Management System',
   });
 });
 

@@ -3,8 +3,8 @@ export type TTicketStatus = 'SOLD' | 'AVAILABLE' | 'EXPIRED';
 
 export type TTicket = {
   busId: Types.ObjectId;
-  createdBy: Types.ObjectId;
   purchasedBy: Types.ObjectId;
+  createdBy: Types.ObjectId;
   fullName?: string;
   phoneNumber?: string;
   price: number;
@@ -13,3 +13,4 @@ export type TTicket = {
   status: TTicketStatus;
   isDeleted: boolean;
 };
+  

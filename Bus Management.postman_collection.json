@@ -1,0 +1,855 @@
+{
+	"info": {
+		"_postman_id": "58c6bf09-4cc8-4724-803d-61a9965a3ac4",
+		"name": "Bus Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34899090"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"alice.johnson@example.com\",\r\n    \"password\": \"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"alice.johnson@example.com\",\r\n    \"password\": \"password123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://busticketmanagement.vercel.app/auth/login",
+									"protocol": "https",
+									"host": [
+										"busticketmanagement",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Alice Johnson\",\r\n    \"email\": \"alice.johnson@example.com\",\r\n    \"password\": \"password123\",\r\n    \"contactNo\": \"123-456-7890\",\r\n    \"profileImage\": \"https://example.com/images/alice.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Alice Johnson\",\r\n    \"email\": \"alice.johnson@example.com\",\r\n    \"password\": \"password123\",\r\n    \"contactNo\": \"123-456-7890\",\r\n    \"profileImage\": \"https://example.com/images/alice.jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://busticketmanagement.vercel.app/auth/register",
+									"protocol": "https",
+									"host": [
+										"busticketmanagement",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/auth/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "logout",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://busticketmanagement.vercel.app/auth/logout",
+									"protocol": "https",
+									"host": [
+										"busticketmanagement",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Bus ( For Admin )",
+			"item": [
+				{
+					"name": "create bus",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"busName\": \"Coastal Voyager\",\r\n    \"busNumber\": \"UVW-999\",\r\n    \"busImage\": \"https://example.com/bus5.jpg\",\r\n    \"driverName\": \"Michael Brown\",\r\n    \"driverPhone\": \"444-555-6666\",\r\n    \"seats\": 35,\r\n    \"description\": \"Scenic coastal route bus.\",\r\n    \"route\": \"Seattle - Portland\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/admin/bus",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"bus"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create bus",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEwZGgxQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjc2ZWJmYWZjNTFmZjM3MWNlMTljYjdmIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzM1MzExMjk4LCJleHAiOjE3Mzc5MDMyOTh9.Wj5g30kUhRcgs9TWLoOFUAN2qZd53TpN_eqELvEAamY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"busName\": \"Coastal Voyager\",\r\n    \"busNumber\": \"UVW-999\",\r\n    \"busImage\": \"https://example.com/bus5.jpg\",\r\n    \"driverName\": \"Michael Brown\",\r\n    \"driverPhone\": \"444-555-6666\",\r\n    \"seats\": 35,\r\n    \"description\": \"Scenic coastal route bus.\",\r\n    \"route\": \"Seattle - Portland\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://busticketmanagement.vercel.app/admin/bus",
+									"protocol": "https",
+									"host": [
+										"busticketmanagement",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"admin",
+										"bus"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "update bus",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"driverName\": \"Jomshed Uddin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/admin/bus/676ec2965e1dde60df677744",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"bus",
+								"676ec2965e1dde60df677744"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update bus",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEwZGgxQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjc2ZWJmYWZjNTFmZjM3MWNlMTljYjdmIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzM1MzExMjk4LCJleHAiOjE3Mzc5MDMyOTh9.Wj5g30kUhRcgs9TWLoOFUAN2qZd53TpN_eqELvEAamY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"driverName\": \"Jomshed Uddin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://busticketmanagement.vercel.app/admin/bus/676ec2965e1dde60df677744",
+									"protocol": "https",
+									"host": [
+										"busticketmanagement",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"admin",
+										"bus",
+										"676ec2965e1dde60df677744"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "delete bus",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/admin/bus/676ec2965e1dde60df677744",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"bus",
+								"676ec2965e1dde60df677744"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete bus",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEwZGgxQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjc2ZWJmYWZjNTFmZjM3MWNlMTljYjdmIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzM1MzExMjk4LCJleHAiOjE3Mzc5MDMyOTh9.Wj5g30kUhRcgs9TWLoOFUAN2qZd53TpN_eqELvEAamY",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://busticketmanagement.vercel.app/admin/bus/676ec2965e1dde60df677744",
+									"protocol": "https",
+									"host": [
+										"busticketmanagement",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"admin",
+										"bus",
+										"676ec2965e1dde60df677744"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Bus ( For User )",
+			"item": [
+				{
+					"name": "All bus",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/buses?route=Chicago - St. Louis",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"buses"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": "Chicago",
+									"disabled": true
+								},
+								{
+									"key": "route",
+									"value": "Chicago - St. Louis"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "All bus",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlLmpvaG5zb25AZXhhbXBsZS5jb20iLCJ1c2VySWQiOiI2NzZlYzMyZTVlMWRkZTYwZGY2Nzc3NGUiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTczNTMxMjE5MiwiZXhwIjoxNzM3OTA0MTkyfQ.YFx_80j6jVDRulmpYGzA5KJ4OHxna7b6USuYEKX-AGw",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://busticketmanagement.vercel.app/buses?route=Chicago - St. Louis",
+									"protocol": "https",
+									"host": [
+										"busticketmanagement",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"buses"
+									],
+									"query": [
+										{
+											"key": "searchTerm",
+											"value": "Chicago",
+											"disabled": true
+										},
+										{
+											"key": "route",
+											"value": "Chicago - St. Louis"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Ticket ( For Admin )",
+			"item": [
+				{
+					"name": "upload ticket",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"busId\": \"676ebff8c51ff371ce19cb8a\",\r\n    \"price\": 25,\r\n    \"date\": \"2024-12-28\",\r\n    \"seatNumber\": 21\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/admin/ticket",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"ticket"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "upload ticket",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{adminToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"busId\": \"676ebff8c51ff371ce19cb8a\",\r\n    \"price\": 25,\r\n    \"date\": \"2024-12-28\",\r\n    \"seatNumber\": 21\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/admin/ticket",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"ticket"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "update ticket",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"price\": 50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/admin/ticket/676ec60ce149396d11869d9f",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"ticket",
+								"676ec60ce149396d11869d9f"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update ticket",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{adminToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"price\": 50\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/admin/ticket/676ec60ce149396d11869d9f",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"ticket",
+										"676ec60ce149396d11869d9f"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "delete ticket",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{adminToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/admin/ticket/676ec60ce149396d11869d9f",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"ticket",
+								"676ec60ce149396d11869d9f"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete ticket",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{adminToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/admin/ticket/676ec60ce149396d11869d9f",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"ticket",
+										"676ec60ce149396d11869d9f"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Ticket ( For User )",
+			"item": [
+				{
+					"name": "Ticket purchase",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ticketId\": \"676ec608e149396d11869d9a\",\r\n    \"fullName\": \"Mahin khan\",\r\n    \"phoneNumber\": \"01785767584\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tickets/purchase",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tickets",
+								"purchase"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ticket purchase",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{userToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ticketId\": \"676ec608e149396d11869d9a\",\r\n    \"fullName\": \"Mahin khan\",\r\n    \"phoneNumber\": \"01785767584\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/tickets/purchase",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"tickets",
+										"purchase"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get specific bus",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{userToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/tickets?status=available&date=Sat Dec 28 2024",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tickets"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "available"
+								},
+								{
+									"key": "date",
+									"value": "Sat Dec 28 2024"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get specific bus",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{userToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/tickets?status=available&date=Sat Dec 28 2024",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"tickets"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "available"
+										},
+										{
+											"key": "date",
+											"value": "Sat Dec 28 2024"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://busticketmanagement.vercel.app",
+			"type": "string"
+		},
+		{
+			"key": "adminToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEwZGgxQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjc2ZWJmYWZjNTFmZjM3MWNlMTljYjdmIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzM1MzExMjk4LCJleHAiOjE3Mzc5MDMyOTh9.Wj5g30kUhRcgs9TWLoOFUAN2qZd53TpN_eqELvEAamY",
+			"type": "string"
+		},
+		{
+			"key": "userToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlLmpvaG5zb25AZXhhbXBsZS5jb20iLCJ1c2VySWQiOiI2NzZlYzMyZTVlMWRkZTYwZGY2Nzc3NGUiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTczNTMxMjE5MiwiZXhwIjoxNzM3OTA0MTkyfQ.YFx_80j6jVDRulmpYGzA5KJ4OHxna7b6USuYEKX-AGw",
+			"type": "string"
+		}
+	]
+}
