@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "58c6bf09-4cc8-4724-803d-61a9965a3ac4",
+		"_postman_id": "71e731aa-c805-4ee1-95d5-dd53bcabdd4c",
 		"name": "Bus Management",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "34899090"
+		"_exporter_id": "24264729"
 	},
 	"item": [
 		{
@@ -63,10 +63,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -77,7 +77,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Alice Johnson\",\r\n    \"email\": \"alice.johnson@example.com\",\r\n    \"password\": \"password123\",\r\n    \"contactNo\": \"123-456-7890\",\r\n    \"profileImage\": \"https://example.com/images/alice.jpg\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Alice Johnson\",\r\n    \"email\": \"alice.johnson2@example.com\",\r\n    \"password\": \"password123\",\r\n    \"contactNo\": \"123-456-7890\",\r\n    \"profileImage\": \"https://example.com/images/alice.jpg\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -124,10 +124,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -167,10 +167,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				}
@@ -192,7 +192,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"busName\": \"Coastal Voyager\",\r\n    \"busNumber\": \"UVW-999\",\r\n    \"busImage\": \"https://example.com/bus5.jpg\",\r\n    \"driverName\": \"Michael Brown\",\r\n    \"driverPhone\": \"444-555-6666\",\r\n    \"seats\": 35,\r\n    \"description\": \"Scenic coastal route bus.\",\r\n    \"route\": \"Seattle - Portland\"\r\n}",
+							"raw": "{\r\n    \"busName\": \"Coastal Voyager 2\",\r\n    \"busNumber\": \"UVW-9999\",\r\n    \"busImage\": \"https://example.com/bus5.jpg\",\r\n    \"driverName\": \"Michael Brown\",\r\n    \"driverPhone\": \"444-555-6666\",\r\n    \"seats\": 35,\r\n    \"description\": \"Scenic coastal route bus.\",\r\n    \"route\": \"Seattle - Portland\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -245,10 +245,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -265,7 +265,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"driverName\": \"Jomshed Uddin\"\r\n}",
+							"raw": "{\r\n    \"busNumber\": \"4444444\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -273,14 +273,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/admin/bus/676ec2965e1dde60df677744",
+							"raw": "{{url}}/admin/bus/676f555e1386faa22ad28a8f",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"admin",
 								"bus",
-								"676ec2965e1dde60df677744"
+								"676f555e1386faa22ad28a8f"
 							]
 						}
 					},
@@ -320,10 +320,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -339,14 +339,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/admin/bus/676ec2965e1dde60df677744",
+							"raw": "{{url}}/admin/bus/676f555e1386faa22ad28a8f",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"admin",
 								"bus",
-								"676ec2965e1dde60df677744"
+								"676f555e1386faa22ad28a8f"
 							]
 						}
 					},
@@ -377,10 +377,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				}
@@ -401,7 +401,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/buses?route=Chicago - St. Louis",
+							"raw": "{{url}}/buses",
 							"host": [
 								"{{url}}"
 							],
@@ -416,7 +416,23 @@
 								},
 								{
 									"key": "route",
-									"value": "Chicago - St. Louis"
+									"value": "Chicago - St. Louis",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "busName",
+									"disabled": true
 								}
 							]
 						}
@@ -434,7 +450,7 @@
 									}
 								],
 								"url": {
-									"raw": "https://busticketmanagement.vercel.app/buses?route=Chicago - St. Louis",
+									"raw": "https://busticketmanagement.vercel.app/buses",
 									"protocol": "https",
 									"host": [
 										"busticketmanagement",
@@ -452,7 +468,23 @@
 										},
 										{
 											"key": "route",
-											"value": "Chicago - St. Louis"
+											"value": "Chicago - St. Louis",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "3",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "busName",
+											"disabled": true
 										}
 									]
 								}
@@ -508,7 +540,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "{{adminToken}}",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEwZGgxQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjc2ZWJmYWZjNTFmZjM3MWNlMTljYjdmIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzM1MzExMjk4LCJleHAiOjE3Mzc5MDMyOTh9.Wj5g30kUhRcgs9TWLoOFUAN2qZd53TpN_eqELvEAamY",
 										"type": "text"
 									}
 								],
@@ -522,9 +554,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/admin/ticket",
+									"raw": "https://busticketmanagement.vercel.app/admin/ticket",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"busticketmanagement",
+										"vercel",
+										"app"
 									],
 									"path": [
 										"admin",
@@ -532,10 +567,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -560,14 +595,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/admin/ticket/676ec60ce149396d11869d9f",
+							"raw": "{{url}}/admin/ticket/676ec605e149396d11869d95",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"admin",
 								"ticket",
-								"676ec60ce149396d11869d9f"
+								"676ec605e149396d11869d95"
 							]
 						}
 					},
@@ -579,7 +614,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "{{adminToken}}",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEwZGgxQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjc2ZWJmYWZjNTFmZjM3MWNlMTljYjdmIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzM1MzExMjk4LCJleHAiOjE3Mzc5MDMyOTh9.Wj5g30kUhRcgs9TWLoOFUAN2qZd53TpN_eqELvEAamY",
 										"type": "text"
 									}
 								],
@@ -593,9 +628,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/admin/ticket/676ec60ce149396d11869d9f",
+									"raw": "https://busticketmanagement.vercel.app/admin/ticket/676ec60ce149396d11869d9f",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"busticketmanagement",
+										"vercel",
+										"app"
 									],
 									"path": [
 										"admin",
@@ -604,10 +642,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -623,14 +661,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/admin/ticket/676ec60ce149396d11869d9f",
+							"raw": "{{url}}/admin/ticket/676ec605e149396d11869d95",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"admin",
 								"ticket",
-								"676ec60ce149396d11869d9f"
+								"676ec605e149396d11869d95"
 							]
 						}
 					},
@@ -642,14 +680,17 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "{{adminToken}}",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEwZGgxQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjc2ZWJmYWZjNTFmZjM3MWNlMTljYjdmIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzM1MzExMjk4LCJleHAiOjE3Mzc5MDMyOTh9.Wj5g30kUhRcgs9TWLoOFUAN2qZd53TpN_eqELvEAamY",
 										"type": "text"
 									}
 								],
 								"url": {
-									"raw": "{{url}}/admin/ticket/676ec60ce149396d11869d9f",
+									"raw": "https://busticketmanagement.vercel.app/admin/ticket/676ec60ce149396d11869d9f",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"busticketmanagement",
+										"vercel",
+										"app"
 									],
 									"path": [
 										"admin",
@@ -658,10 +699,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				}
@@ -683,7 +724,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"ticketId\": \"676ec608e149396d11869d9a\",\r\n    \"fullName\": \"Mahin khan\",\r\n    \"phoneNumber\": \"01785767584\"\r\n}",
+							"raw": "{\r\n    \"ticketId\": \"676edafcff50161610e936b3\",\r\n    \"fullName\": \"Mahin khan\",\r\n    \"phoneNumber\": \"01785767584\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -733,10 +774,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				},
@@ -752,7 +793,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/tickets?status=available&date=Sat Dec 28 2024",
+							"raw": "{{url}}/tickets",
 							"host": [
 								"{{url}}"
 							],
@@ -762,11 +803,23 @@
 							"query": [
 								{
 									"key": "status",
-									"value": "available"
+									"value": "available",
+									"disabled": true
 								},
 								{
 									"key": "date",
-									"value": "Sat Dec 28 2024"
+									"value": "Sat Dec 28 2024",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
 								}
 							]
 						}
@@ -784,7 +837,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{url}}/tickets?status=available&date=Sat Dec 28 2024",
+									"raw": "{{url}}/tickets",
 									"host": [
 										"{{url}}"
 									],
@@ -794,11 +847,23 @@
 									"query": [
 										{
 											"key": "status",
-											"value": "available"
+											"value": "available",
+											"disabled": true
 										},
 										{
 											"key": "date",
-											"value": "Sat Dec 28 2024"
+											"value": "Sat Dec 28 2024",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "5",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "2",
+											"disabled": true
 										}
 									]
 								}

@@ -35,6 +35,19 @@ Implement user authentication, role-based authorization (admin and user), and ti
 ```
 DATABASE_URL="mongodb://localhost:27017/bus_management"
 JWT_SECRET= <Your JWT Secret>
+NODE_ENV="development"
+PORT=5000
+SALT_ROUND=10
+ACCESS_KEY="3f9848e84df91405d7fb29fb69b07021a93acddc7319f8e188ef61f3fdf18a239c8d6c7fee70686d5d5070b82710e8ba99c2842bc05555946852e66ccdbadad1"
+ACCESS_EXPIRE_IN="5d"
+REFRESH_KEY="8c3197240b4161bd0b834864fc49a57c6720b4954715b565abe99e91939f02bf25112607890af51c2a3daecc6368d2c735a61cfa2c2860c3f1449520d3f629bd"
+REFRESH_EXPIRE_IN="30d"
+
+ADMIN_EMAIL= <Your Admin Email>
+ADMIN_PASSWORD= <Your Admin Password>
+ADMIN_NAME= <Your Admin Name>
+ADMIN_CONTACT_NO= <Your Admin Contact>
+ADMIN_PROFILE_IMAGE= <Your Admin Image>
 ```
 
 - then, build the project using `npm run build` command.

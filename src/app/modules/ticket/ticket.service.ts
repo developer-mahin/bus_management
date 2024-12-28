@@ -64,7 +64,18 @@ const createTicket = async (
 };
 
 const getAllTickets = async (query: Record<string, unknown>) => {
-  const busQuery = new QueryBuilder(Ticket.find({}), query)
+  const busQuery = new QueryBuilder(
+    Ticket.find({})
+      .populate({
+        path: 'busId',
+        model: 'Bus',
+      })
+      .populate({
+        path: 'purchasedBy',
+        model: 'User',
+      }),
+    query,
+  )
     .search(ticketSearchableFields)
     .paginate()
     .filter(ticketFilterableFields)
